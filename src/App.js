@@ -12,6 +12,9 @@ import CheckoutPage from './pages/CheckoutPage';
 import OrdersPage from './pages/OrdersPage';
 import AddressFormPage from './pages/AddressFormPage';
 import AdminDashboard from './pages/AdminDashboard';
+import OrderDetailAdmin from './pages/OrderDetailAdmin';
+import UserOrdersPage from './pages/UserOrdersPage';
+import OrderConfirmed from './pages/OrderConfirmed';
 
 
 function App() {
@@ -29,7 +32,11 @@ function App() {
       <Route path='/addressForm' element={<AddressFormPage/>}/>
       <Route path='/orders/:id' element={<OrdersPage/>}/>
       <Route path='/category/:id' element={<CategoryProducts/>}/>
+      <Route path='/your-orders/:id' element={<UserOrdersPage/>}/>
+      <Route path='/your-orders/order/:id' element={<OrderConfirmed/>}/>
       <Route path='/adminDashboard' element={<AdminDashboard/>}/>
+      <Route path='/adminDashboard/order/:id' element={<OrderDetailAdmin/>}/>
+
       <Route path='*' element={<PageNotFound/>}/>
 
    

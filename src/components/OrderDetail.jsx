@@ -44,6 +44,7 @@ const OrderDetail = () => {
       cartId: cart?._id,
       userName:user.name,
       cartItems: cart.data?.items.map((singleCartItem) => ({
+        name: singleCartItem?.name,
         productId: singleCartItem?.productId,
         color: singleCartItem?.color,
         size: singleCartItem?.size,

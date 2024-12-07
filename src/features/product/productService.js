@@ -8,6 +8,13 @@ const getAllProducts = async (id) => {
     return res.data;
 };
 
+// Fetch popular products
+const getPopularProducts = async () => {
+    const res = await axios.get(`${API_URL}/popular`);
+    console.log(res.data);
+    return res.data
+};
+
 // Fetch a single product by ID
 const getProductById = async (id) => {
     console.log(id);
@@ -33,6 +40,7 @@ const productService = {
     getProductById,
     addProduct,
     deleteProduct,
+    getPopularProducts
 };
 
 export default productService;

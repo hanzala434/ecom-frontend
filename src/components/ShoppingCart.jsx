@@ -7,7 +7,7 @@ import CartContent from './CartContent';
 import { useNavigate } from 'react-router-dom';
 
   const ShoppingCart = ({ open, setOpen}) => {
-    const userId = useSelector((state) => state.auth.user._id); // Access userId from Redux state
+    const userId = useSelector((state) => state.auth.user?._id); // Access userId from Redux state
     const cart = useSelector((state) => state.cart);
     const navigate=useNavigate()
 

@@ -3,6 +3,7 @@ import productService from './productService';
 
 const initialState = {
     products: [], // Array to hold all products
+    popularList:[],
     product: null, // Single product (for details or editing)
     isError: false,
     isSuccess: false,
@@ -14,6 +15,17 @@ const initialState = {
 export const fetchProducts = createAsyncThunk('products/fetchAll', async (id, thunkAPI) => {
     try {
         return await productService.getAllProducts(id);
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) ||
+            error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+//fetch popular Products
+export const fetchPopularProducts = createAsyncThunk('products/fetchPopular', async (thunkAPI) => {
+    try {
+        return await productService.getPopularProducts();
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) ||
             error.message || error.toString();
@@ -80,6 +92,20 @@ export const productSlice = createSlice({
                 state.product=action.null;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(fetchPopularProducts.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchPopularProducts.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.popularList = action.payload;
+                state.product=action.null;
+            })
+            .addCase(fetchPopularProducts.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

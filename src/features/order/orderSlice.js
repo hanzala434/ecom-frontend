@@ -63,9 +63,9 @@ export const getAllOrders = createAsyncThunk(
 // Get order details
 export const getOrderDetails = createAsyncThunk(
   "order/getOrderDetails",
-  async (id, thunkAPI) => {
+  async (orderId, thunkAPI) => {
     try {
-      return await orderService.getOrderDetails(id);
+      return await orderService.getOrderDetails(orderId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -124,7 +124,7 @@ const orderSlice = createSlice({
       })
       .addCase(getOrderDetails.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.orderDetails = action.payload.data;
+        state.orderDetails = action.payload;
       })
       .addCase(getOrderDetails.rejected, (state) => {
         state.isLoading = false;

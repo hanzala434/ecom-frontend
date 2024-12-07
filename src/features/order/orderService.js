@@ -21,6 +21,7 @@ const capturePayment = async (paymentId, payerId, orderId) => {
 // Get all orders by user ID
 const getAllOrders = async (userId) => {
   const response = await axios.get(`${API_URL}/list/${userId}`);
+  console.log(response.data)
   return response.data;
 };
 
@@ -31,8 +32,8 @@ const getAllOrdersAdmin = async () => {
 };
 
 // Get order details
-const getOrderDetails = async (id) => {
-  const response = await axios.get(`${API_URL}/details/${id}`);
+const getOrderDetails = async (orderId) => {
+  const response = await axios.get(`${API_URL}/details/${orderId}`);
   return response.data;
 };
 

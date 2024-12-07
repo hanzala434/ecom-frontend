@@ -3,11 +3,12 @@ import { useState,useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { useSelector,useDispatch } from 'react-redux'
 import { useNavigate,useParams } from 'react-router-dom'
-import { getAllOrders,resetOrderDetails } from '../features/order/orderSlice'
+import { getAllOrders,getOrderDetails,resetOrderDetails } from '../features/order/orderSlice'
 
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const { id } = useParams();
 
 
@@ -31,11 +32,15 @@ const Dashboard = () => {
     
   }, [isError, message, dispatch]
 );
+
+const handleOnClick=(orderId)=>{
+      console.log(orderId);
+      dispatch(getOrderDetails(orderId))
+      navigate(`/adminDashboard/order/${orderId}`)
+}
   return (
     <>
-    <div className='bg-black flex'>
-        <h1 className='text-slate-50 text-4xl m-4'>Dashboard</h1>
-    </div>
+    
     <section className='p-2'>
     <ul role="list" className="divide-y divide-gray-100">
       {orderList.map((order) => (
@@ -49,15 +54,7 @@ const Dashboard = () => {
           </div>
           <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
             <p className="text-sm/6 text-gray-900">{order.role}</p>
-            {order.lastSeen ? (
-              <p className="mt-1 text-xs/5 text-gray-500">
-                Last seen <time dateTime={order.lastSeenDateTime}>{order.lastSeen}</time>
-              </p>
-            ) : (
-             <h3>
-              No orders to Show
-             </h3>
-            )}
+            <button onClick={() => handleOnClick(order._id)}>See Details</button>  
           </div>
         </li>
       ))}
